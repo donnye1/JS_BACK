@@ -1,5 +1,5 @@
 const Sequelize = require("sequelize");
-const { sequelizeInstance } = require("");
+const { sequelizeInstance } = require("..");
 
 class ToDo extends Sequelize.Model {} 
 

@@ -1,8 +1,8 @@
 const express = require("express");
 const app = express();
-const { initDB } = require("./DB")                                                                             // npm run server              to start
+const { initDB } = require("./db/index")
 const port = 3100;
-const ToDo = require("./DB/models/ToDo.models")
+const ToDo = require("./db/models/ToDoModel")
 
 app.use(express.json())
 
@@ -15,7 +15,6 @@ app.listen(port, () => {
 
 app.get("/api/todos", async (req, res) => {
     try{
-        console.log("get", req.header);
         let list = await ToDo.findAll();
         res.json(list)
     } catch (error) {
@@ -34,7 +33,7 @@ app.get("/api/todos/:id", async (req, res) => {
             res.status(404).json({ message: "ID не найден"});
         }   
     } catch (error) {
-        res.status(500).json("Error");
+        res.status(500).json({message: "Error", error});
     }
 });
 
@@ -46,7 +45,7 @@ app.post("/api/todos", async (req, res) =>{
         });
         res.json(todo)
     } catch (error) {
-        res.status(500).json("Error")
+        res.status(500).json({message:"Error", error})
     }
 })
 
